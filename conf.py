@@ -10,6 +10,7 @@ extensions = [
     "sphinx.ext.intersphinx",
 ]
 exclude_patterns = [
+    ".venv",
     "venv",
     "README.rst",
 ]
@@ -41,7 +42,4 @@ nitpick_ignore = [
     ("py:class", "NamedShape"),
     ("py:class", "RealArray"),
     ("py:class", "Shape"),
-]
-suppress_warnings = [
-    "ref.footnote",  # jax._src.random.orthogonal:15 has an unreferenced footnote.
 ]

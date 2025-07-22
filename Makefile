@@ -13,7 +13,7 @@ doctests :
 
 docs :
 	rm -rf docs/_build
-	sphinx-build -nW --keep-going . docs/_build
+	sphinx-build -n --keep-going . docs/_build
 
 tests :
 	pytest -v --cov=ifnt --cov-report=term-missing

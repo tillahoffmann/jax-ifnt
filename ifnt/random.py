@@ -24,8 +24,17 @@ def keys(seed):
         Array((), dtype=key<fry>) overlaying: [4109519897 3077142452]
         >>> next(keys)
         Array((), dtype=key<fry>) overlaying: [3656642974 2192743943]
+
+        >>> keys = ifnt.random.keys(jax.random.key(9))
+        >>> next(keys)
+        Array((), dtype=key<fry>) overlaying: [4109519897 3077142452]
+        >>> next(keys)
+        Array((), dtype=key<fry>) overlaying: [3656642974 2192743943]
     """
-    key = random.key(seed)
+    if isinstance(seed, int):
+        key = random.key(seed)
+    else:
+        key = seed
     while True:
         key, subkey = random.split(key)
         yield subkey
