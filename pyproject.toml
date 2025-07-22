@@ -8,3 +8,4 @@ dependencies = [
 ]
 readme = "README.rst"
 description = "Execute runtime assertions, indexing checks, and more if jax code is not traced."
+requires-python = ">=3.9"
