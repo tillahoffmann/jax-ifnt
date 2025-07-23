@@ -3,6 +3,7 @@ import jax
 from jax import numpy as jnp
 from jax.scipy import stats
 import numpy as np
+from textwrap import indent
 import warnings
 from .util import broadcast_over_dict, skip_if_traced
 
@@ -99,13 +100,25 @@ def assert_samples_close(
         >>> ifnt.testing.assert_samples_close(samples, 1.0)
         Traceback (most recent call last):
         ...
-        AssertionError: Sample mean 0.01749... with standard error 0.030881... is not
-        consistent with the expected value 1.0 (z-score = 31.81521...).
+        AssertionError: Sample mean:
+          0.01749...
+        with standard error:
+          0.03088...
+        is not consistent with the expected value:
+          1.0
+        The z-score is:
+          31.81...
         >>> ifnt.testing.assert_samples_close(samples, -1.0)
         Traceback (most recent call last):
         ...
-        AssertionError: Sample mean 0.01749... with standard error 0.03088... is not
-        consistent with the expected value -1.0 (z-score = -32.94792...).
+        AssertionError: Sample mean:
+          0.01749...
+        with standard error:
+          0.03088...
+        is not consistent with the expected value:
+          -1.0
+        The z-score is:
+          -32.94...
     """
     allowed_actions = {"raise", "warn", "ignore"}
     if on_weak not in allowed_actions:
@@ -139,8 +152,9 @@ def assert_samples_close(
     within_tol = jnp.isclose(samples, expected, rtol=rtol, atol=atol).all(axis=0)
     if ((p < q) & ~within_tol).any():
         raise AssertionError(
-            f"Sample mean {mean} with standard error {stderr} is not consistent with "
-            f"the expected value {expected} (z-score = {z})."
+            f"Sample mean:\n{indent(str(mean), '  ')}\nwith standard error:\n"
+            f"{indent(str(stderr), '  ')}\nis not consistent with the expected value:\n"
+            f"{indent(str(expected), '  ')}\nThe z-score is: \n{indent(str(z), '  ')}"
         )
 
 
